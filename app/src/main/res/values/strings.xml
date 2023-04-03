@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">mySalary</string>
+    <string name="Edit">Edit>></string>
+
+    <string name="mysalary">salary :</string>
+    <string name="payday">payday :</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
+
+    <string name="info">update per 5sec</string>
+</resources>
