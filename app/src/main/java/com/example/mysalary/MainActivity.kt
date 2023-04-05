@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mysalary.databinding.ActivityMainBinding
+import java.text.DecimalFormat
 import java.util.*
 
 
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var salaryViewModel: saveSalaryViewModel
     private lateinit var calsalaryViewModel: calSalaryViewModel
+
+    private val decimalFormat = DecimalFormat("#,###")
+    private var result: String = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,13 +44,17 @@ class MainActivity : AppCompatActivity() {
             val timer = Timer()
             val timerTask: TimerTask = object : TimerTask() {
                 override fun run() {
-                    // 코드 작성
+                    // 누적 금액 갱신
                     calsalaryViewModel.getAccu(context)
                 }
             }
-            timer.schedule(timerTask, 0, 5000)
+            timer.schedule(timerTask, 0, 10000)
             calsalaryViewModel.res.observe(context, Observer {
-                binding.tempSalary.text=it
+
+                result = decimalFormat.format(it.toString().replace(",","").toFloat())
+                binding.tempSalary.setText(result);
+
+
             })
 
         }else{
