@@ -27,12 +27,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:onClick="editSalary"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:onClick="editSalary"
             android:text="@string/Edit"
-            android:background="#00FFFFFF"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +55,8 @@
     <TextView
         android:id="@+id/tempSalary"
         android:layout_width="wrap_content"
-        android:textSize="50sp"
         android:layout_height="wrap_content"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,9 +65,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/info"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tempSalary" />

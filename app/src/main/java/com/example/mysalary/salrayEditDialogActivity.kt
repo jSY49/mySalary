@@ -2,16 +2,14 @@ package com.example.mysalary
 
 import android.app.Dialog
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.graphics.drawable.ColorDrawable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.Window
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.mysalary.databinding.ActivityMainBinding
 import com.example.mysalary.databinding.ActivitySalrayEditDialogBinding
 import java.text.DecimalFormat
 
@@ -31,6 +29,7 @@ class salrayEditDialog(private val context: AppCompatActivity) {
         salaryViewModel = ViewModelProvider(context)[saveSalaryViewModel::class.java]
 
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)   //타이틀바 제거
+        dlg.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dlg.setContentView(binding.root)     //다이얼로그에 사용할 xml 파일을 불러옴
         dlg.setCancelable(false)    //다이얼로그의 바깥 화면을 클릭시 종료x
 

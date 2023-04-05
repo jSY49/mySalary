@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/roundcorner"
+    android:padding="15dp"
     tools:context=".salrayEditDialog">
 
     <TextView
@@ -77,19 +79,23 @@
 
         <Button
             android:id="@+id/cancelButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textColor="@color/red" />
 
         <Button
             android:id="@+id/saveButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
