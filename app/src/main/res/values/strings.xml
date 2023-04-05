@@ -6,6 +6,8 @@
     <string name="payday">payday :</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
+    <string name="first_sal">0</string>
 
-    <string name="info">update per 10sec</string>
+
+    <string name="info">update per 1sec</string>
 </resources>

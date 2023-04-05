@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.mysalary.databinding.ActivitySalrayEditDialogBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
 class salrayEditDialog(private val context: AppCompatActivity) {
@@ -35,7 +38,13 @@ class salrayEditDialog(private val context: AppCompatActivity) {
 
         binding.salaryText.addTextChangedListener(watcher)
         binding.salaryText.setText(salary) //전달 받은 텍스트
-        binding.paydayText.setText(salaryViewModel.getPayday(context))
+        CoroutineScope(Dispatchers.Main).launch {
+            salaryViewModel.getPayday(context).collect{
+                binding.paydayText.setText(it)
+            }
+        }
+
+//        binding.paydayText.setText(salaryViewModel.getPayday(context))
 
         //ok 버튼 동작
         binding.saveButton.setOnClickListener {
@@ -43,7 +52,9 @@ class salrayEditDialog(private val context: AppCompatActivity) {
             val mypayday= binding.paydayText.text.toString()
             if(mypayday.toInt()<32){
                 listener.onOKClicked(mySalary)
-                salaryViewModel.setSalry(mySalary,mypayday,context)
+                CoroutineScope(Dispatchers.Default).launch {
+                    salaryViewModel.setSalry(mySalary,mypayday,context)
+                }
                 dlg.dismiss()
             }else{
                binding.paydayText.backgroundTintList=ContextCompat.getColorStateList(context,R.color.red)

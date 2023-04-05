@@ -1,31 +1,63 @@
 package com.example.mysalary
 
 import android.content.Context
-import android.content.SharedPreferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import java.io.IOException
 
+private val Context.dataStore by preferencesDataStore(name = "UserSalary")
 class sharedPrefer(val context: Context) {
 
-    fun setSalry(salary: String,mypayday :String){
-        val auto : SharedPreferences = context.getSharedPreferences("UserSalary", Context.MODE_PRIVATE)
-        val userSalary = auto.edit()
-        userSalary.putString("salary", salary)
-        userSalary.putString("payday", mypayday)
-        userSalary.apply()
+    private val salaryKey = stringPreferencesKey("salary") // string 저장 키값
+    private val paydayKey = stringPreferencesKey("payday") // string 저장 키값
+
+
+    suspend fun setSalry(salary: String, mypayday: String) {
+
+        context.dataStore.edit { preferences ->
+            preferences[salaryKey] = salary
+            preferences[paydayKey] = mypayday
+        }
 
     }
 
-    fun getSharedPreference() : Boolean{
-        val auto : SharedPreferences = context.getSharedPreferences("UserSalary", Context.MODE_PRIVATE)
-        return !auto.getString("salary", null).isNullOrBlank()
+    fun getSalry(): Flow<String> {
+
+        val text: Flow<String> = context.dataStore.data
+            .catch { exception ->       //가져오는 작업이 실패했을 때
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                preferences[salaryKey] ?: "0"
+            }
+
+        return  text
     }
 
-    fun getSalry(): String{
-        val auto : SharedPreferences = context.getSharedPreferences("UserSalary", Context.MODE_PRIVATE)
-        return auto.getString("salary","0").toString()
+    fun getPayday(): Flow<String> {
+        val text: Flow<String> = context.dataStore.data
+            .catch { exception ->       //가져오는 작업이 실패했을 때
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                preferences[paydayKey] ?: "0"
+            }
+
+        return text
     }
 
-    fun getPayday(): String{
-        val auto : SharedPreferences = context.getSharedPreferences("UserSalary", Context.MODE_PRIVATE)
-        return auto.getString("payday","0").toString()
-    }
 }

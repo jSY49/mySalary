@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.Flow
 
 class saveSalaryViewModel: ViewModel() {
 
-    fun setSalry(salary: String,mypayday :String,context: Context){
+    suspend fun setSalry(salary: String, mypayday :String, context: Context){
         sharedPrefer(context).setSalry(salary, mypayday)
     }
 
-    fun getSalry(context: Context): String= sharedPrefer(context).getSalry()
+    fun getSalry(context: Context): Flow<String> = sharedPrefer(context).getSalry()
 
-    fun getPayday(context: Context): String = sharedPrefer(context).getPayday()
+    fun getPayday(context: Context): Flow<String> = sharedPrefer(context).getPayday()
 }
