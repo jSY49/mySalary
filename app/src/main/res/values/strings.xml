@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">mySalary</string>
+    <string name="name">💰 내 월급 얼마나 모였지? 💰</string>
     <string name="Edit">Edit>></string>
+    <string name="conceal">내 월급 숨기기</string>
+    <string name="notconceal">내 월급 보이기</string>
 
     <string name="mysalary">salary :</string>
     <string name="payday">payday :</string>

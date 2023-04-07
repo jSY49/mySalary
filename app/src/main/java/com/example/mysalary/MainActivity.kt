@@ -125,4 +125,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var conceal =false
+    fun concealBtn(view: View) {
+        if(!conceal){
+            binding.mySalary.visibility=View.GONE
+            binding.concealButton.text=resources.getText(R.string.notconceal)
+            conceal=true
+        }else{
+            binding.mySalary.visibility=View.VISIBLE
+            binding.concealButton.text=resources.getText(R.string.conceal)
+            conceal=false
+        }
+
+    }
+
 }
