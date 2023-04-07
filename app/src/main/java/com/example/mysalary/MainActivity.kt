@@ -5,15 +5,14 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.example.mysalary.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.util.*
@@ -28,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private val decimalFormat = DecimalFormat("#,###")
     private var result: String = ""
 
+    private val mTimer = Timer()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         calsalaryViewModel = ViewModelProvider(this)[calSalaryViewModel::class.java]
 
         setUi()
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -72,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        Timer().scheduleAtFixedRate( object : TimerTask() {
+        mTimer.scheduleAtFixedRate( object : TimerTask() {
             override fun run() {
                 //누적 금액 갱신
                 calsalaryViewModel.cal(sal,date)
@@ -106,6 +108,21 @@ class MainActivity : AppCompatActivity() {
             result = decimalFormat.format(it.toString().replace(",", "").toFloat())
             binding.tempSalary.text=result
         })
+    }
+
+
+    private var backPress :Long =0
+    override fun onBackPressed() {
+        if(System.currentTimeMillis()-backPress<2000){
+            mTimer.cancel()
+            finish()
+            return
+        }
+
+        Toast.makeText(this,"뒤로 버튼을 한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show()
+        backPress = System.currentTimeMillis()
+
+
     }
 
 }
