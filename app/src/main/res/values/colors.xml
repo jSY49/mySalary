@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red">#FF0000</color>
-    <color name="lightgreen">#C8E6C9</color>
-    <color name="green">#6DB56F</color>
+    <color name="hotpink">#FF6e6e</color>
+    <color name="lightPink">#ffdede</color>
 </resources>
