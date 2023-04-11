@@ -17,7 +17,6 @@ class sharedPrefer(val context: Context) {
     private val salaryKey = stringPreferencesKey("salary") // string 저장 키값
     private val paydayKey = stringPreferencesKey("payday") // string 저장 키값
 
-
     suspend fun setSalry(salary: String, mypayday: String) {
 
         context.dataStore.edit { preferences ->

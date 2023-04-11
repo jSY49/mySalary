@@ -1,6 +1,7 @@
 package com.example.mysalary
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -83,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         }, 0, 1000)
 
         refresh()
-
 //            binding.mySalary.text=salaryViewModel.getSalry(context)
 
 
@@ -125,8 +125,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private var conceal =false
+    private var conceal =true
     fun concealBtn(view: View) {
+
         if(!conceal){
             binding.mySalary.visibility=View.GONE
             binding.concealButton.text=resources.getText(R.string.notconceal)
@@ -136,7 +137,6 @@ class MainActivity : AppCompatActivity() {
             binding.concealButton.text=resources.getText(R.string.conceal)
             conceal=false
         }
-
     }
 
 }
